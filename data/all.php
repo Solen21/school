@@ -121,6 +121,15 @@ $sql_class_assignments = "CREATE TABLE IF NOT EXISTS class_assignments (
     FOREIGN KEY (section_id) REFERENCES sections(section_id)
 )";
 
+// ================= SECTION ASSIGNMENTS ================
+$sql = "CREATE TABLE section_assignments(
+    assignments_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    student_id INT(11) NOT NULL,
+    section_id INT(11) NOT NULL,
+    assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (student_id) REFERENCES students(student_id)
+    FOREIGN KEY (section_id) REFERENCES sections(section_id)
+)";
 
 // ================= SUBJECT ASSIGNMENTS =================
 $sql_subject_assignments = "CREATE TABLE IF NOT EXISTS subject_assignments (
