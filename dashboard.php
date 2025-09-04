@@ -33,7 +33,7 @@ include 'partials/header.php';
 
     <div class="row">
         <!-- Students Card -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="100">
             <div class="card border-left-primary shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -48,7 +48,7 @@ include 'partials/header.php';
         </div>
 
         <!-- Teachers Card -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="200">
             <div class="card border-left-success shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -63,7 +63,7 @@ include 'partials/header.php';
         </div>
 
         <!-- Sections Card -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="300">
             <div class="card border-left-info shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -78,7 +78,7 @@ include 'partials/header.php';
         </div>
 
         <!-- Guardians Card -->
-        <div class="col-xl-3 col-md-6 mb-4">
+        <div class="col-xl-3 col-md-6 mb-4" data-aos="fade-up" data-aos-delay="400">
             <div class="card border-left-warning shadow h-100 py-2">
                 <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -95,7 +95,7 @@ include 'partials/header.php';
 
     <!-- Recent Activity -->
     <div class="row">
-        <div class="col-lg-7 mb-4">
+        <div class="col-lg-7 mb-4" data-aos="fade-right">
             <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bold text-primary">Recently Registered Students</h6>
@@ -116,7 +116,7 @@ include 'partials/header.php';
                 </div>
             </div>
         </div>
-        <div class="col-lg-5 mb-4">
+        <div class="col-lg-5 mb-4" data-aos="fade-left">
             <div class="card shadow">
                 <div class="card-header py-3">
                     <h6 class="m-0 fw-bold text-primary">Quick Links</h6>
