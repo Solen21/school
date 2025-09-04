@@ -19,30 +19,10 @@ $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Error fetching students: " . mysqli_error($conn));
 }
+
+$page_title = "Manage Students";
+include 'partials/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Students</title>
-    <!-- Bootstrap CSS for styling -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Optional: Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        /* Re-using styles from users.php */
-        body { background-color: #f8f9fa; }
-        .container { margin-top: 30px; }
-        .table-hover tbody tr:hover { background-color: #e9ecef; }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
-</head>
-<body>
 
 <div class="container">
     <div class="card shadow-sm">
@@ -108,9 +88,5 @@ if (!$result) {
 <?php
 // Close the database connection
 mysqli_close($conn);
+include 'partials/footer.php';
 ?>
-
-<!-- Bootstrap JS Bundle (needed for some components) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>

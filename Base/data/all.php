@@ -215,7 +215,6 @@ $queries = [
     $sql_subject_assignments,
     $sql_classrooms,
     $sql_attendance,
-    $sql_attendance,
     $sql_grades,
     $sql_messages,
     $sql_reports
