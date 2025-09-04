@@ -121,16 +121,6 @@ $sql_class_assignments = "CREATE TABLE IF NOT EXISTS class_assignments (
     FOREIGN KEY (section_id) REFERENCES sections(section_id)
 )";
 
-// ================= SECTION ASSIGNMENTS ================
-$sql = "CREATE TABLE section_assignments(
-    assignments_id INT(11) AUTO_INCREMENT PRIMARY KEY,
-    student_id INT(11) NOT NULL,
-    section_id INT(11) NOT NULL,
-    assigned_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (student_id) REFERENCES students(student_id)
-    FOREIGN KEY (section_id) REFERENCES sections(section_id)
-)";
-
 // ================= SUBJECT ASSIGNMENTS =================
 $sql_subject_assignments = "CREATE TABLE IF NOT EXISTS subject_assignments (
     assignment_id INT(11) AUTO_INCREMENT PRIMARY KEY,
@@ -155,6 +145,7 @@ $sql_classrooms = "CREATE TABLE IF NOT EXISTS classrooms (
 $sql_attendance = "CREATE TABLE IF NOT EXISTS attendance (
     attendance_id INT(11) AUTO_INCREMENT PRIMARY KEY,
     student_id INT(11),
+    section_id INT(11),
     subject_id INT(11),
     teacher_id INT(11),
     date DATE,
@@ -163,8 +154,10 @@ $sql_attendance = "CREATE TABLE IF NOT EXISTS attendance (
     marked_by VARCHAR(100),
     marked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (student_id) REFERENCES students(student_id),
+    FOREIGN KEY (section_id) REFERENCES sections(section_id),
     FOREIGN KEY (subject_id) REFERENCES subjects(subject_id),
-    FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id)
+    FOREIGN KEY (teacher_id) REFERENCES teachers(teacher_id),
+    UNIQUE KEY `unique_attendance` (`student_id`, `subject_id`, `date`)
 )";
 
 // ================= GRADES =================
@@ -221,6 +214,7 @@ $queries = [
     $sql_class_assignments,
     $sql_subject_assignments,
     $sql_classrooms,
+    $sql_attendance,
     $sql_attendance,
     $sql_grades,
     $sql_messages,

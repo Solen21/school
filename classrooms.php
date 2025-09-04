@@ -60,6 +60,7 @@ if (!$result) {
                                 <td><?php echo htmlspecialchars($row['classroom_id']); ?></td>
                                 <td><?php echo htmlspecialchars($row['name']); ?></td>
                                 <td><?php echo htmlspecialchars($row['capacity']); ?></td>
+
                                 <td><?php echo nl2br(htmlspecialchars($row['resources'])); ?></td>
                                 <td>
                                     <a href="edit_classroom.php?id=<?php echo $row['classroom_id']; ?>" class="btn btn-sm btn-warning" title="Edit"><i class="fas fa-edit"></i></a>
@@ -67,6 +68,9 @@ if (!$result) {
                                 </td>
                             </tr>
                             <?php endwhile; ?>
+                                 <a href="assign_students.php?classroom_id=<?php echo $row['classroom_id']; ?>" class="btn btn-sm btn-primary" title="Assign Students">
+                                  <i class="fas fa-user-plus"></i> Assign Students
+                                  </a>
                         <?php else: ?>
                             <tr>
                                 <td colspan="5" class="text-center">No classrooms found.</td>
