@@ -1,10 +1,11 @@
 <?php
 // Include the database connection file
+require_once 'data/auth_check.php';
 require_once 'data/db_connect.php';
 
 // Fetch all users from the database, ordered by their ID.
 // We are selecting specific columns and excluding the password for security and clarity.
-$sql = "SELECT user_id, username, email, role, created_at FROM users ORDER BY user_id ASC";
+$sql = "SELECT user_id, username, role, created_at FROM users ORDER BY user_id ASC";
 $result = mysqli_query($conn, $sql);
 
 // Check if the query was successful
@@ -39,7 +40,6 @@ include 'partials/header.php';
                         <tr>
                             <th>ID</th>
                             <th>Username</th>
-                            <th>Email</th>
                             <th>Role</th>
                             <th>Date Created</th>
                             <th>Actions</th>
@@ -51,7 +51,6 @@ include 'partials/header.php';
                             <tr>
                                 <td><?php echo htmlspecialchars($row['user_id']); ?></td>
                                 <td><?php echo htmlspecialchars($row['username']); ?></td>
-                                <td><?php echo htmlspecialchars($row['email']); ?></td>
                                 <td><?php echo htmlspecialchars(ucfirst($row['role'])); ?></td>
                                 <td><?php echo date('F j, Y, g:i a', strtotime($row['created_at'])); ?></td>
                                 <td>
@@ -63,7 +62,7 @@ include 'partials/header.php';
                             <?php endwhile; ?>
                         <?php else: ?>
                             <tr>
-                                <td colspan="6" class="text-center">No users found.</td>
+                                <td colspan="5" class="text-center">No users found..</td>
                             </tr>
                         <?php endif; ?>
                     </tbody>

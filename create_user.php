@@ -1,4 +1,5 @@
 <?php
+require_once 'data/auth_check.php';
 $message = '';
 $message_type = '';
 
@@ -17,54 +18,50 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "All fields are required.";
         $message_type = "danger";
     } else {
-        // --- Securely hash the password ---
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        // --- Check for existing username before attempting to insert ---
+        $sql_check = "SELECT user_id FROM users WHERE username = ?";
+        if ($stmt_check = mysqli_prepare($conn, $sql_check)) {
+            mysqli_stmt_bind_param($stmt_check, "s", $username);
+            mysqli_stmt_execute($stmt_check);
+            mysqli_stmt_store_result($stmt_check);
 
-        // --- Use Prepared Statements to prevent SQL injection ---
-        $sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
-        
-        if ($stmt = mysqli_prepare($conn, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $username, $hashed_password, $role);
-
-            // Attempt to execute the prepared statement
-            if (mysqli_stmt_execute($stmt)) {
-                // Redirect to the user list page on success
-                header("Location: users.php?status=created");
-                exit();
-            } else {
-                // Check for a duplicate username error
-                if (mysqli_errno($conn) == 1062) {
-                    $message = "Error: This username already exists. Please choose another one.";
-                } else {
-                    $message = "Error: Something went wrong. Please try again later.";
-                }
+            if (mysqli_stmt_num_rows($stmt_check) > 0) {
+                $message = "Error: This username already exists. Please choose another one.";
                 $message_type = "danger";
+            } else {
+                // --- Securely hash the password ---
+                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+                // --- Use Prepared Statements to prevent SQL injection ---
+                $sql = "INSERT INTO users (username, password, role) VALUES (?, ?, ?)";
+                
+                if ($stmt = mysqli_prepare($conn, $sql)) {
+                    // Bind variables to the prepared statement as parameters
+                    mysqli_stmt_bind_param($stmt, "sss", $username, $hashed_password, $role);
+
+                    // Attempt to execute the prepared statement
+                    if (mysqli_stmt_execute($stmt)) {
+                        // Redirect to the user list page on success
+                        header("Location: users.php?status=created");
+                        exit();
+                    } else {
+                        $message = "Error: Something went wrong. Please try again later.";
+                        $message_type = "danger";
+                    }
+                    // Close statement
+                    mysqli_stmt_close($stmt);
+                }
             }
-            // Close statement
-            mysqli_stmt_close($stmt);
+            mysqli_stmt_close($stmt_check);
         }
     }
     // Close connection
     mysqli_close($conn);
 }
+
+$page_title = "Create New User";
+include 'partials/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create New User</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { background-color: #f8f9fa; }
-        .container { max-width: 600px; margin-top: 50px; }
-    </style>
-</head>
-<body>
 
 <div class="container">
     <div class="card shadow-sm">
@@ -105,6 +102,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+include 'partials/footer.php';
+?>

@@ -1,5 +1,6 @@
 <?php
 // Include the database connection file
+require_once 'data/auth_check.php';
 require_once 'data/db_connect.php';
 
 // Fetch all students from the database.

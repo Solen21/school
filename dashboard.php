@@ -1,4 +1,5 @@
 <?php
+require_once 'data/auth_check.php'; // Protect this page
 require_once 'data/db_connect.php';
 
 // --- Fetch counts for the dashboard cards ---

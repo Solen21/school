@@ -1,4 +1,5 @@
 <?php
+require_once 'data/auth_check.php';
 require_once 'data/db_connect.php';
 
 // Fetch all teachers, concatenating their names for a full name display.
@@ -16,27 +17,10 @@ $result = mysqli_query($conn, $sql);
 if (!$result) {
     die("Error fetching teachers: " . mysqli_error($conn));
 }
+
+$page_title = "Manage Teachers";
+include 'partials/header.php';
 ?>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Teachers</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        body { background-color: #f8f9fa; }
-        .container { margin-top: 30px; }
-        .table-hover tbody tr:hover { background-color: #e9ecef; }
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-    </style>
-</head>
-<body>
 
 <div class="container">
     <div class="card shadow-sm">
@@ -95,7 +79,7 @@ if (!$result) {
     </div>
 </div>
 
-<?php mysqli_close($conn); ?>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
-</html>
+<?php
+mysqli_close($conn);
+include 'partials/footer.php';
+?>
